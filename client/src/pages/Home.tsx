@@ -8,16 +8,15 @@ export default function Home() {
   const { isConnected, address, connect, isLoading, error } = useWallet();
 
   const handleConnect = async () => {
-    if (isConnected) {
+    if (isConnected && address) {
       toast.info("Wallet already connected!");
       return;
     }
-    
-    try {
-      await connect();
+    const result = await connect();
+    if (result === "Connected to OneWallet") {
       toast.success("Wallet connected successfully!");
-    } catch (err) {
-      toast.error(error || "Failed to connect wallet");
+    } else {
+      toast.error(result || "Failed to connect wallet");
     }
   };
 

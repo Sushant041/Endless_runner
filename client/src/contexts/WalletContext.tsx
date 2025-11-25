@@ -4,7 +4,7 @@ import { useConnectWallet, useDisconnectWallet, useWallets, useCurrentWallet } f
 interface WalletContextType {
   isConnected: boolean;
   address: string | null;
-  connect: () => Promise<void>;
+  connect: () => Promise<string | undefined>;
   disconnect: () => Promise<void>;
   isLoading: boolean;
   error: string | null;
@@ -82,13 +82,15 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       ) || wallets[0]; // Fallback to first available wallet
 
       if (!oneWallet) {
-        throw new Error(
-          "OneWallet is not installed. Please install the OneChain OneWallet extension."
-        );
+        setIsConnected(false);
+        setAddress(null);
+        setError("OneWallet is not installed. Please install the OneChain OneWallet extension.");
+        setIsLoading(false);
+        return "OneWallet is not installed. Please install the OneChain OneWallet extension.";
       }
 
       // Use SDK's connect function
-      connectWallet(
+       connectWallet(
         { wallet: oneWallet },
         {
           onSuccess: () => {
@@ -102,10 +104,12 @@ export function WalletProvider({ children }: { children: ReactNode }) {
           },
         }
       );
+      return "Connected to OneWallet";
     } catch (err: any) {
       setIsLoading(false);
       setError(err.message || "Failed to connect to OneWallet");
       console.error("OneWallet connection error:", err);
+      return "Failed to connect to OneWallet";
     }
   }, [wallets, connectWallet]);
 
