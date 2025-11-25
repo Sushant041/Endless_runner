@@ -158,3 +158,66 @@ OneChain Docs: https://docs.onelabs.cc
 OneChain SDK Docs: https://doc-testnet.onelabs.cc
 
 OneChain Wallet SDK: https://www.npmjs.com/package/@onelabs/wallet
+
+### Test the Integration
+
+1. Connect your OneWallet
+2. Play the game and achieve scores
+3. Check the Skins page to see which skins you can unlock
+4. Mint NFTs for unlocked skins
+5. Trade NFTs with other addresses
+
+## How It Works
+
+### Gameplay Flow
+
+1. **Play Game**: Player plays and achieves a score
+2. **Submit Score**: Score is automatically submitted to blockchain (if wallet connected)
+3. **Check Unlocks**: Player can see which skins they've unlocked
+4. **Mint NFT**: Player mints NFT for unlocked skin
+5. **Use Skin**: Player equips the NFT skin in-game
+6. **Trade**: Player can transfer NFT to another address
+
+### Unlocking Skins
+
+- Scores are tracked on-chain in the ScoreRegistry
+- Each skin has a required score threshold
+- Players can mint NFTs once they reach the required score
+- NFTs are unique and owned by the player's wallet address
+
+### Trading NFTs
+
+- Players can transfer NFTs to any address
+- Transfer is executed on-chain via smart contract
+- Ownership is updated immediately
+- NFTs can be traded on any OneChain marketplace
+
+## Features
+
+✅ Score-based NFT unlocking
+✅ On-chain score tracking
+✅ NFT minting for unlocked skins
+✅ NFT ownership verification
+✅ NFT trading/transfer functionality
+✅ Real-time unlock status display
+✅ Player score display
+✅ Owned NFTs gallery
+
+## Next Steps
+
+1. Deploy the smart contract to OneChain testnet/mainnet
+2. Update contract addresses in `client/src/lib/nft.ts`
+3. Test the full flow: play → score → unlock → mint → trade
+4. Consider adding:
+   - NFT marketplace integration
+   - Rarity system
+   - Special edition skins
+   - On-chain leaderboard
+
+## Notes
+
+- The contract uses Move language (similar to Sui)
+- All transactions require gas fees
+- Scores are stored permanently on-chain
+- NFTs are fully tradeable and transferable
+- The system is ready for production after contract deployment
